@@ -7,4 +7,7 @@ class Account(models.Model):
     fav_team = models.CharField(max_length=50, blank=True)
     avatar = models.ImageField(upload_to='avatars', default='default.png')
 
+    def __str__(self) -> str:
+        return self.user.username
+
     

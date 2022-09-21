@@ -12,6 +12,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
         token['username'] = user.username
         token['email'] = user.email
+        token['is_staff'] = user.is_staff
 
         return token
 
@@ -36,3 +37,15 @@ class RegisterUserSerializer(serializers.ModelSerializer):
         new_account.save()
 
         return user
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+
+class AccountSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = Account
+        fields = ['user', 'bio', 'fav_team', 'avatar']
