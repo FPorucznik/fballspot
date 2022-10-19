@@ -31,7 +31,7 @@ const LoginForm = () => {
                 <input type="submit" value="Log in" />
             </form>
             <p>{loginMessage}</p>
-            {loggedIn && <Navigate to="/account" />}
+            {loggedIn && <Navigate to="/main_dashboard" />}
         </div>
     );
 }

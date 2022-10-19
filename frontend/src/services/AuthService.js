@@ -35,6 +35,10 @@ class AuthService {
                 sessionStorage.setItem("refresh", response.data.refresh);
             });
     }
+
+    isLoggedIn() {
+        return sessionStorage.getItem("token") ? true : false;
+    }
 }
 
 export default new AuthService();
