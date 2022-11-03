@@ -1,5 +1,5 @@
 import Sidebar from "../components/Sidebar";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import AuthService from "../services/AuthService";
 
@@ -11,6 +11,15 @@ const FriendsDashboard = () => {
         //setUserData(null); TODO after adding data fetching
         setLoggedOut(true);
     }
+
+    useEffect(() => {
+        if (AuthService.isLoggedIn()) {
+            console.log("logged in");
+        }
+        else {
+            setLoggedOut(true);
+        }
+    }, []);
 
     return (
         <>
