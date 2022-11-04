@@ -1,16 +1,9 @@
-import Sidebar from "../components/Sidebar";
 import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import AuthService from "../services/AuthService";
 
 const FriendsDashboard = () => {
     const [loggedOut, setLoggedOut] = useState(false);
-
-    const logout = () => {
-        AuthService.logout();
-        //setUserData(null); TODO after adding data fetching
-        setLoggedOut(true);
-    }
 
     useEffect(() => {
         if (AuthService.isLoggedIn()) {
@@ -26,7 +19,6 @@ const FriendsDashboard = () => {
             {loggedOut ?
                 <Navigate to="/login" /> :
                 <>
-                    <Sidebar logoutClick={logout} />
                     <div className="col py-3">
                         <h1>Friends Dashboard</h1>
                     </div>

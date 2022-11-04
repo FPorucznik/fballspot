@@ -6,7 +6,7 @@ import AuthService from "./AuthService";
 const API_URL = "http://localhost:8000/api/";
 
 class UserService {
-    getUserPage() {
+    getUserData() {
         const token = sessionStorage.getItem('token');
         return axios.get(API_URL + `user/${jwt_decode(token).user_id}`, { headers: authHeader() })
             .then(response => {
