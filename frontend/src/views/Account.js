@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import UserService from '../services/UserService';
 import { Navigate } from "react-router-dom";
 import AuthService from "../services/AuthService";
+import EditProfile from "../components/EditProfile";
 
 const Account = () => {
     const [userData, setUserData] = useState(null);
@@ -29,15 +30,9 @@ const Account = () => {
                 <Navigate to="/login" /> :
                 <>
                     {userData &&
-                        <>
-                            <div className="col py-3">
-                                <div>
-                                    <h1>Your account</h1>
-                                    <img src={userData.avatar} alt="User avatar" />
-                                    <h2>Username: {userData.user.username}</h2>
-                                </div>
-                            </div>
-                        </>
+                        <div className="col py-2 bg-secondary">
+                            <EditProfile userData={userData} />
+                        </div>
                     }
                 </>
             }

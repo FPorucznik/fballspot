@@ -46,7 +46,7 @@ const Sidebar = (props) => {
                 <hr />
                 <div className="dropdown pb-4">
                     <button className="btn btn-link d-flex align-items-center text-white text-decoration-none dropdown-toggle" type="button" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="https://soccerpointeclaire.com/wp-content/uploads/2021/06/default-profile-pic-e1513291410505.jpg" alt="profile_img" width="30" height="30" className="rounded-circle"></img>
+                        <img src={props.avatar} alt="profile_img" width="30" height="30" className="rounded-circle"></img>
                         <span className="ms-2 d-none d-sm-inline align-text-bottom">{props.username}</span>
                     </button>
                     <ul className="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser">
