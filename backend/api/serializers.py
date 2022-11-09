@@ -49,3 +49,13 @@ class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
         fields = ['user', 'bio', 'fav_team', 'avatar']
+
+class UpdateUserSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+    bio = serializers.CharField(required=False)
+    fav_team = serializers.CharField(required=False)
+    avatar = serializers.ImageField(required=False)
+
+    class Meta:
+        model = Account
+        fields = ['user', 'bio', 'fav_team', 'avatar']

@@ -28,11 +28,21 @@ const MainLayout = () => {
         navigate("/login");
     }
 
+    const handleUserUpdate = () => {
+        UserService.getUserData()
+        .then(response => {
+            setUserData(response.data);
+        })
+        .catch(() => {
+            AuthService.refreshToken();
+        });
+    }
+
     return (
         <div className="container-fluid">
             <div className="row flex-nowrap">
                 <Sidebar logoutClick={logout} username={userData && userData.user.username} avatar={userData && userData.avatar} />
-                <Outlet />
+                <Outlet context={[userData, handleUserUpdate]}/>
             </div>
         </div>
     )
