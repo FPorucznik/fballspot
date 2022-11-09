@@ -20,7 +20,7 @@ class UserService {
     }
 
     updateUserProfile(bio, fav_team) {
-        console.log(bio, fav_team);
+        console.log(avatar, bio, fav_team);
     }
 }
 
