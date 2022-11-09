@@ -19,8 +19,15 @@ class UserService {
             });
     }
 
-    updateUserProfile(bio, fav_team) {
-        console.log(avatar, bio, fav_team);
+    updateUserProfile(data) {
+        const token = sessionStorage.getItem('token');
+        return axios.put(API_URL + `user/update/${jwt_decode(token).user_id}`, data, { headers: authHeader() })
+            .then(response => {
+                return response;
+            })
+            .catch(error => {
+                console.log(error);
+            });
     }
 }
 

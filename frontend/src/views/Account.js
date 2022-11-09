@@ -1,26 +1,15 @@
 import { useState, useEffect } from "react";
-import UserService from '../services/UserService';
-import { Navigate } from "react-router-dom";
+import { Navigate, useOutletContext } from "react-router-dom";
 import AuthService from "../services/AuthService";
 import EditProfile from "../components/EditProfile";
 
 const Account = () => {
-    const [userData, setUserData] = useState(null);
+    const [userData, handleUserUpdate] = useOutletContext();
     const [loggedOut, setLoggedOut] = useState(false);
 
     useEffect(() => {
-        if (AuthService.isLoggedIn()) {
-            UserService.getUserData()
-                .then(response => {
-                    setUserData(response.data);
-                })
-                .catch(() => {
-                    AuthService.refreshToken();
-                });
-        }
-        else {
+        if (!AuthService.isLoggedIn()) {
             setLoggedOut(true);
-            setUserData(null);
         }
     }, []);
 
@@ -31,7 +20,7 @@ const Account = () => {
                 <>
                     {userData &&
                         <div className="col py-2 bg-secondary">
-                            <EditProfile userData={userData} />
+                            <EditProfile userData={userData} userUpdate={handleUserUpdate} />
                         </div>
                     }
                 </>
