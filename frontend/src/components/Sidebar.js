@@ -1,8 +1,15 @@
 import { LinkContainer } from "react-router-bootstrap"
+import { useState } from "react";
 
 const Sidebar = (props) => {
+    const [searchUserInput, setSearchUserInput] = useState("");
+
     const logout = () => {
         props.logoutClick();
+    }
+
+    const handleSearch = () => {
+        console.log(searchUserInput);
     }
 
     return (
@@ -13,7 +20,13 @@ const Sidebar = (props) => {
                         <span className="fs-5 d-none d-sm-inline">FballSpot</span>
                     </a>
                 </LinkContainer>
-                <ul className="nav flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start" id="main_dashboard">
+                <ul className="nav flex-column mb-sm-auto mb-0 align-items-center align-items-sm-start">
+                    <li className="nav-item">
+                        <div className="input-group mb-3">
+                            <input type="text" value={searchUserInput} onChange={event => setSearchUserInput(event.target.value)} className="form-control" placeholder="Search user" aria-label="Search user" aria-describedby="search"/>
+                            <button className="btn btn-primary" onClick={handleSearch} type="button" id="search"><i className="bi bi-search"></i></button>
+                        </div>
+                    </li>
                     <li className="nav-item">
                         <LinkContainer to="/main">
                             <a href="/" className="nav-link align-middle px-0">

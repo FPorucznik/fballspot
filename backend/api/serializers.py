@@ -59,3 +59,10 @@ class UpdateUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
         fields = ['user', 'bio', 'fav_team', 'avatar']
+
+class SearchUserSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = Account
+        fields = ['user', 'bio', 'fav_team', 'avatar']
