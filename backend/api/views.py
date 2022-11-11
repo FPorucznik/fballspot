@@ -26,6 +26,7 @@ class UpdateUserView(generics.UpdateAPIView):
 
 class SearchUserView(generics.ListAPIView):
     serializer_class = SearchUserSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         username = self.kwargs['username']

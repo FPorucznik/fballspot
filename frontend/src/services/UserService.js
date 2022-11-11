@@ -8,7 +8,7 @@ const API_URL = "http://localhost:8000/api/";
 class UserService {
     getUserData() {
         const token = sessionStorage.getItem('token');
-        return axios.get(API_URL + `user/${jwt_decode(token).user_id}`, { headers: authHeader() })
+        return axios.get(API_URL + `user/${jwt_decode(token).account_id}`, { headers: authHeader() })
             .then(response => {
                 return response;
             })
@@ -21,13 +21,28 @@ class UserService {
 
     updateUserProfile(data) {
         const token = sessionStorage.getItem('token');
-        return axios.put(API_URL + `user/update/${jwt_decode(token).user_id}`, data, { headers: authHeader() })
+        return axios.put(API_URL + `user/update/${jwt_decode(token).account_id}`, data, { headers: authHeader() })
             .then(response => {
                 return response;
             })
             .catch(error => {
+                if (error.response.status === 401) {
+                    AuthService.refreshToken();
+                }
                 console.log(error);
             });
+    }
+
+    searchUserProfile(username) {
+        return axios.get(API_URL + `user/${username}`, { headers: authHeader() })
+        .then(response => {
+            return response;
+        })
+        .catch(error => {
+            if (error.response.status === 401) {
+                AuthService.refreshToken();
+            }
+        });
     }
 }
 

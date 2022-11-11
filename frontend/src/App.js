@@ -13,6 +13,7 @@ import AuthService from './services/AuthService';
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import UserBrowse from './views/UserBrowse';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
               <Route path="account" element={<Account />} />
               <Route path="chats" element={<Chats />} />
               <Route path="watchrooms" element={<Watchrooms />} />
+              <Route path="users/:username" element={<UserBrowse />} />
             </Route>
           </Routes>
         </BrowserRouter>

@@ -8,18 +8,24 @@ const MyVerticallyCenteredModal = (props) => {
     const [bio, setBio] = useState(props.bio)
     const [favTeam, setFavTeam] = useState(props.fav_team)
     const [avatar, setAvatar] = useState(props.avatar);
-    const [show, setShow] = useState(props.show);
+    const [show, setShow] = useState(false);
 
     useEffect(() => {
         setShow(props.show);
     }, [props.show]);
+
+    const setModalVisibility = () => {
+        props.setModalVisibility();
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
         let form_data = new FormData();
         form_data.append('bio', bio);
         form_data.append('fav_team', favTeam);
-        form_data.append('avatar', avatar, avatar.name);
+        if(avatar.name) {
+            form_data.append('avatar', avatar, avatar.name);
+        }
         UserService.updateUserProfile(form_data)
             .then(() => {
                 handleUserUpdateSubmit();
@@ -29,6 +35,7 @@ const MyVerticallyCenteredModal = (props) => {
     const handleUserUpdateSubmit = () => {
         props.userUpdate();
         setShow(false);
+        setModalVisibility();
     }
 
     return (
@@ -65,6 +72,10 @@ const MyVerticallyCenteredModal = (props) => {
 const EditProfile = (props) => {
     const [modalShow, setModalShow] = useState(false);
 
+    const setModalVisibility = () => {
+        setModalShow(false);
+    }
+
     return (
         <>
             <div className="container rounded mt-1 shadow-lg bg-white h-100 w-100 text-center">
@@ -83,7 +94,7 @@ const EditProfile = (props) => {
                     <span className="fs-6 mx-auto mt-2" style={{ width: "300px" }}>{props.userData.fav_team}</span>
                 </div>
             </div>
-            <MyVerticallyCenteredModal show={modalShow} onHide={() => setModalShow(false)} {...props.userData} userUpdate={props.userUpdate}/>
+            <MyVerticallyCenteredModal show={modalShow} onHide={() => setModalShow(false)} {...props.userData} userUpdate={props.userUpdate} setModalVisibility={setModalVisibility}/>
         </>
     )
 }

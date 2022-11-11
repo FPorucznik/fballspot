@@ -1,15 +1,17 @@
 import { LinkContainer } from "react-router-bootstrap"
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = (props) => {
     const [searchUserInput, setSearchUserInput] = useState("");
+    const navigate = useNavigate();
 
     const logout = () => {
         props.logoutClick();
     }
 
     const handleSearch = () => {
-        console.log(searchUserInput);
+        navigate(`/main/users/${searchUserInput}`);
     }
 
     return (
