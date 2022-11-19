@@ -57,6 +57,13 @@ const Sidebar = (props) => {
                             </a>
                         </LinkContainer>
                     </li>
+                    <li className="nav-item">
+                        <LinkContainer to={`/main/notifications/${props.username}`}>
+                            <a href="/" className="nav-link align-middle px-0">
+                                <i className="fs-4 bi bi-bell"></i><span className="ms-2 d-none d-sm-inline align-text-bottom">Notifications</span>
+                            </a>
+                        </LinkContainer>
+                    </li>
                 </ul>
                 <hr />
                 <div className="dropdown pb-4">

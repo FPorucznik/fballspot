@@ -44,6 +44,18 @@ class UserService {
             }
         });
     }
+
+    getUserNotifications(username) {
+        return axios.get(API_URL + `user/notifications/${username}`, { headers: authHeader() })
+        .then(response => {
+            return response;
+        })
+        .catch(error => {
+            if (error.response.status === 401) {
+                AuthService.refreshToken();
+            }
+        });
+    }
 }
 
 export default new UserService();

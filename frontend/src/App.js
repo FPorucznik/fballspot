@@ -14,6 +14,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.bundle";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import UserBrowse from './views/UserBrowse';
+import Notifications from './views/Notifications';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
               <Route path="chats" element={<Chats />} />
               <Route path="watchrooms" element={<Watchrooms />} />
               <Route path="users/:username" element={<UserBrowse />} />
+              <Route path="notifications/:username" element={<Notifications />} />
             </Route>
           </Routes>
         </BrowserRouter>

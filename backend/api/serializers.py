@@ -3,7 +3,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from rest_framework.validators import UniqueValidator
-from api.models import Account
+from api.models import Account, Notification, Friend
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -66,4 +66,17 @@ class SearchUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Account
-        fields = ['user', 'bio', 'fav_team', 'avatar']
+        fields = ['id', 'user', 'bio', 'fav_team', 'avatar']
+
+class NotificationSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Notification
+        fields = ['id', 'type', 'data']
+
+class FriendsSerializer(serializers.ModelSerializer):
+    accountOne = serializers.PrimaryKeyRelatedField(queryset=Account.objects.all())
+    accountTwo = serializers.PrimaryKeyRelatedField(queryset=Account.objects.all())
+
+    class Meta:
+        model = Friend
+        fields = ['accountOne', 'accountTwo']
