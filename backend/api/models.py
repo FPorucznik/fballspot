@@ -11,12 +11,13 @@ class Account(models.Model):
         return self.user.username
 
 class Notification(models.Model):
-    account = models.ForeignKey(Account, null=False, on_delete=models.CASCADE)
+    sender = models.ForeignKey(Account, null=False, related_name="sender", on_delete=models.CASCADE)
+    receiver = models.ForeignKey(Account, null=False, related_name="receiver", on_delete=models.CASCADE)
     type = models.TextField(max_length=50, blank=False)
     data = models.JSONField()
 
     def __str__(self) -> str:
-        return f'{self.account.user.username}-{self.type}'
+        return f'{self.receiver.user.username}-{self.type}'
 
 class Friend(models.Model):
     accountOne = models.ForeignKey(Account, null=False, related_name="account_one", on_delete=models.CASCADE)

@@ -56,6 +56,69 @@ class UserService {
             }
         });
     }
+
+    getUserFriends(username) {
+        return axios.get(API_URL + `user/friends/${username}`, { headers: authHeader() })
+        .then(response => {
+            return response;
+        })
+        .catch(error => {
+            if (error.response.status === 401) {
+                AuthService.refreshToken();
+            }
+        });
+    }
+
+    sendFriendRequest(sender_id, receiver_id, sender_name) {
+        const data = {
+            'sender': sender_id,
+            'receiver': receiver_id,
+            'type': 'friend_request',
+            'data': {
+                'username': sender_name
+            }
+        }
+        return axios.post(API_URL + `user/notifications/add/`, data, { headers: authHeader() })
+        .then(response => {
+            return response;
+        })
+        .catch(error => {
+            if (error.response.status === 401) {
+                AuthService.refreshToken();
+            }
+            console.log(error);
+        });
+    }
+
+    acceptFriendRequest(sender_id, receiver_id) {
+        const data = {
+            'accountOne': sender_id,
+            'accountTwo': receiver_id
+        }
+        return axios.post(API_URL + `user/friends/add/`, data, { headers: authHeader() })
+        .then(response => {
+            return response;
+        })
+        .catch(error => {
+            if (error.response.status === 401) {
+                AuthService.refreshToken();
+            }
+            console.log(error);
+        });
+    }
+
+    deleteNotification(id) {
+        return axios.delete(API_URL + `user/notifications/delete/${id}`, { headers: authHeader() })
+        .then(response => {
+            return response;
+        })
+        .catch(error => {
+            if (error.response.status === 401) {
+                AuthService.refreshToken();
+            }
+            console.log(error);
+        });
+    }
 }
 
 export default new UserService();

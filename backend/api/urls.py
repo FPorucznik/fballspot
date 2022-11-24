@@ -3,7 +3,7 @@ from rest_framework_simplejwt.views import (
     TokenRefreshView,
 )
 from api.views import MyTokenObtainPairView, RegisterUserView, UpdateUserView, UserView, SearchUserView, \
-    ListNotificationView, AddFriendRelationshipView, ListFriendsView
+    ListNotificationView, AddFriendRelationshipView, ListFriendsView, AddNotificationView, DeleteNotificationView
 
 urlpatterns = [
     path('token/', MyTokenObtainPairView.as_view(), name='token_obtain_pair'),
@@ -15,4 +15,6 @@ urlpatterns = [
     path('user/notifications/<slug:username>', ListNotificationView.as_view(), name='user_notifiactions'),
     path('user/friends/add/', AddFriendRelationshipView.as_view(), name='user_add_friend_relationship'),
     path('user/friends/<slug:username>', ListFriendsView.as_view(), name='user_friends'),
+    path('user/notifications/add/', AddNotificationView.as_view(), name='user_add_notification'),
+    path('user/notifications/delete/<int:pk>', DeleteNotificationView.as_view(), name='user_delete_notification'),
 ]

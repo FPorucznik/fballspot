@@ -49,7 +49,7 @@ class AccountSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Account
-        fields = ['user', 'bio', 'fav_team', 'avatar']
+        fields = ['id', 'user', 'bio', 'fav_team', 'avatar']
 
 class UpdateUserSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
@@ -71,7 +71,7 @@ class SearchUserSerializer(serializers.ModelSerializer):
 class NotificationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Notification
-        fields = ['id', 'type', 'data']
+        fields = ['id', 'sender', 'receiver', 'type', 'data']
 
 class FriendsSerializer(serializers.ModelSerializer):
     accountOne = serializers.PrimaryKeyRelatedField(queryset=Account.objects.all())
