@@ -15,6 +15,7 @@ import "bootstrap/dist/js/bootstrap.bundle";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import UserBrowse from './views/UserBrowse';
 import Notifications from './views/Notifications';
+import CreatePost from './views/CreatePost';
 
 function App() {
   return (
@@ -33,6 +34,7 @@ function App() {
               <Route path="watchrooms" element={<Watchrooms />} />
               <Route path="users/:username" element={<UserBrowse />} />
               <Route path="notifications/:username" element={<Notifications />} />
+              <Route path="create-post" element={<CreatePost />} />
             </Route>
           </Routes>
         </BrowserRouter>
