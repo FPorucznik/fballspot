@@ -119,6 +119,19 @@ class UserService {
             console.log(error);
         });
     }
+
+    createPost(data) {
+        return axios.post(API_URL + `posts/create/`, data, { headers: authHeader() })
+            .then(response => {
+                return response;
+            })
+            .catch(error => {
+                if (error.response.status === 401) {
+                    AuthService.refreshToken();
+                }
+                console.log(error);
+            });
+    }
 }
 
 export default new UserService();

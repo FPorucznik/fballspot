@@ -14,6 +14,10 @@ const Sidebar = (props) => {
         navigate(`/main/users/${searchUserInput}`);
     }
 
+    const handleCreatePost = () => {
+        navigate('/main/create-post');
+    }
+
     return (
         <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
             <div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
@@ -28,6 +32,11 @@ const Sidebar = (props) => {
                             <input type="text" value={searchUserInput} onChange={event => setSearchUserInput(event.target.value)} className="form-control" placeholder="Search user" aria-label="Search user" aria-describedby="search"/>
                             <button className="btn btn-primary" onClick={handleSearch} type="button" id="search"><i className="bi bi-search"></i></button>
                         </div>
+                    </li>
+                    <li className="nav-item">
+                        <button type="button" className="btn btn-primary" onClick={handleCreatePost} style={{ width: "135px" }}>
+                            <span><i className="bi bi-postcard px-1"></i>Create Post</span>
+                        </button>
                     </li>
                     <li className="nav-item">
                         <LinkContainer to="/main">

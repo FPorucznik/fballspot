@@ -25,3 +25,22 @@ class Friend(models.Model):
 
     def __str__(self) -> str:
         return f'{self.accountOne.user.username}-{self.accountTwo.user.username}'
+
+class Post(models.Model):
+    author = models.ForeignKey(Account, null=False, on_delete=models.CASCADE)
+    visibility = models.CharField(max_length=10, blank=False)
+    type = models.CharField(max_length=10, blank=False)
+    date = models.DateTimeField(auto_now_add=True)
+    image = models.ImageField(upload_to='posts',  blank=True)
+    content = models.JSONField()
+
+    def __str__(self) -> str:
+        return f'{self.author.user.username}-{self.type}'
+
+class Comment(models.Model):
+    author = models.ForeignKey(Account, null=False, on_delete=models.CASCADE)
+    post = models.OneToOneField(Post, null=False, on_delete=models.CASCADE)
+    text = models.TextField(max_length=500, null=False)
+
+    def __str__(self) -> str:
+        return f'{self.author.user.username}-{self.post}'

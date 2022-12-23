@@ -3,7 +3,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from rest_framework.validators import UniqueValidator
-from api.models import Account, Notification, Friend
+from api.models import Account, Notification, Friend, Post
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -80,3 +80,10 @@ class FriendsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Friend
         fields = ['accountOne', 'accountTwo']
+
+class PostSerializer(serializers.ModelSerializer):
+    author = serializers.PrimaryKeyRelatedField(queryset=Account.objects.all())
+
+    class Meta:
+        model = Post
+        fields = ['id', 'author', 'visibility', 'type', 'date', 'image', 'content']
