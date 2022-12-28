@@ -4,7 +4,7 @@ from rest_framework_simplejwt.views import (
 )
 from api.views import MyTokenObtainPairView, RegisterUserView, UpdateUserView, UserView, SearchUserView, \
     ListNotificationView, AddFriendRelationshipView, ListFriendsView, AddNotificationView, DeleteNotificationView, \
-    ListPostsView, CreatePostView
+    ListPostsView, CreatePostView, ListCommentsView
 
 
 
@@ -23,4 +23,5 @@ urlpatterns = [
     path('user/notifications/delete/<int:pk>', DeleteNotificationView.as_view(), name='user_delete_notification'),
     path('posts/', ListPostsView.as_view(), name='posts'),
     path('posts/create/', CreatePostView.as_view(), name='post_create'),
+    path('posts/comments/<int:post>', ListCommentsView.as_view(), name='post_comments'),
 ]
