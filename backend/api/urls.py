@@ -21,7 +21,7 @@ urlpatterns = [
     path('user/friends/<slug:username>', ListFriendsView.as_view(), name='user_friends'),
     path('user/notifications/add/', AddNotificationView.as_view(), name='user_add_notification'),
     path('user/notifications/delete/<int:pk>', DeleteNotificationView.as_view(), name='user_delete_notification'),
-    path('posts/', ListPostsView.as_view(), name='posts'),
+    path('posts/<slug:visibility>', ListPostsView.as_view(), name='posts'),
     path('posts/create/', CreatePostView.as_view(), name='post_create'),
     path('posts/comments/<int:post>', ListCommentsView.as_view(), name='post_comments'),
 ]

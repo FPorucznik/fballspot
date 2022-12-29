@@ -74,9 +74,12 @@ class DeleteNotificationView(generics.DestroyAPIView):
     queryset = Notification.objects.all()
 
 class ListPostsView(generics.ListAPIView):
-    queryset = Post.objects.order_by('date').reverse()
     serializer_class = ListPostSerializer
     pagination_class = PageNumberPagination
+
+    def get_queryset(self):
+        visibility = self.kwargs['visibility']
+        return Post.objects.filter(visibility=visibility).order_by('date').reverse()
 
 
 class CreatePostView(generics.CreateAPIView):

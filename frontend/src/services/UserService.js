@@ -132,6 +132,18 @@ class UserService {
                 console.log(error);
             });
     }
+
+    getPosts(visibility, page = 1) {
+        return axios.get(API_URL + `posts/${visibility}?page=${page}`, { headers: authHeader() })
+        .then(response => {
+            return response;
+        })
+        .catch(error => {
+            if (error.response.status === 401) {
+                AuthService.refreshToken();
+            }
+        });
+    }
 }
 
 export default new UserService();
