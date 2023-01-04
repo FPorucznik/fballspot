@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import UserService from "../services/UserService";
 import Toast from 'react-bootstrap/Toast';
 
-const StandardPost = (props) => {
+const SquadPost = (props) => {
     const [comment, setComment] = useState("");
     const [comments, setComments] = useState([]);
     const [likeValue, setLikeValue] = useState(0);
@@ -147,14 +147,86 @@ const StandardPost = (props) => {
                         {props.content.text}
                     </span>
                 </div>
-                {
-                    props.image ?
-                    <div className="row text-center mb-2">
-                        <span>
-                            <img src={props.image} alt="post_img" className="w-75"></img>
-                        </span>
-                    </div> : <></>
-                }
+                <div className="row mb-2 d-flex align-items-center justify-content-center">
+                    <div className="d-flex my-auto align-items-center justify-content-center position-relative">
+                        <div className="d-grid" style={{backgroundImage: `url("http://localhost:8000/media/pitch.jpg")`, backgroundSize: "cover", width: "418px", height: "580px"}}>
+                            <div className="row mt-5">
+                                <div className="col col-4 d-flex align-items-center justify-content-center">
+                                    <span className="bg-white rounded p-1 fw-bold shadow-lg">
+                                        <span className="d-block">{props.content.ratings.LMname}</span>
+                                        <span className="d-block text-center">{props.content.ratings.LMrating}</span>
+                                    </span>
+                                </div>
+                                <div className="col col-4 d-flex align-items-center justify-content-center text-center">
+                                    <span className="bg-white rounded p-1 fw-bold">
+                                        <span className="d-block">{props.content.ratings.STname}</span>
+                                        <span className="d-block text-center">{props.content.ratings.STrating}</span>
+                                    </span>
+                                </div>
+                                <div className="col col-4 d-flex align-items-center justify-content-center text-center">
+                                    <span className="bg-white rounded p-1 fw-bold">
+                                        <span className="d-block">{props.content.ratings.RMname}</span>
+                                        <span className="d-block text-center">{props.content.ratings.RMrating}</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col col-4 d-flex align-items-center justify-content-center text-center">
+                                    <span className="bg-white rounded p-1 fw-bold">
+                                        <span className="d-block">{props.content.ratings.LCMname}</span>
+                                        <span className="d-block text-center">{props.content.ratings.LCMrating}</span>
+                                    </span>
+                                </div>
+                                <div className="col col-4 d-flex align-items-center justify-content-center text-center">
+                                    <span className="bg-white rounded p-1 fw-bold">
+                                        <span className="d-block">{props.content.ratings.CDMname}</span>
+                                        <span className="d-block text-center">{props.content.ratings.CDMrating}</span>
+                                    </span>
+                                </div>
+                                <div className="col col-4 d-flex align-items-center justify-content-center text-center">
+                                    <span className="bg-white rounded p-1 fw-bold">
+                                        <span className="d-block">{props.content.ratings.RCMname}</span>
+                                        <span className="d-block text-center">{props.content.ratings.RCMrating}</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col col-3 d-flex align-items-center justify-content-center text-center">
+                                    <span className="bg-white rounded p-1 fw-bold">
+                                        <span className="d-block">{props.content.ratings.LBname}</span>
+                                        <span className="d-block text-center">{props.content.ratings.LBrating}</span>
+                                    </span>
+                                </div>
+                                <div className="col col-3 d-flex align-items-center justify-content-center text-center">
+                                    <span className="bg-white rounded p-1 fw-bold">
+                                        <span className="d-block">{props.content.ratings.LCBname}</span>
+                                        <span className="d-block text-center">{props.content.ratings.LCBrating}</span>
+                                    </span>
+                                </div>
+                                <div className="col col-3 d-flex align-items-center justify-content-center text-center">
+                                    <span className="bg-white rounded p-1 fw-bold">
+                                        <span className="d-block">{props.content.ratings.RCBname}</span>
+                                        <span className="d-block text-center">{props.content.ratings.RCBrating}</span>
+                                    </span>
+                                </div>
+                                <div className="col col-3 d-flex align-items-center justify-content-center text-center">
+                                    <span className="bg-white rounded p-1 fw-bold">
+                                        <span className="d-block">{props.content.ratings.RBname}</span>
+                                        <span className="d-block text-center">{props.content.ratings.RBrating}</span>
+                                    </span>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col d-flex align-items-center justify-content-center text-center">
+                                    <span className="bg-white rounded p-1 fw-bold">
+                                        <span className="d-block">{props.content.ratings.GKname}</span>
+                                        <span className="d-block text-center">{props.content.ratings.GKrating}</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div className="row">
                     <span className="mb-2">
                         <Toast onClose={() => setShow(false)} show={show} delay={2500} autohide>
@@ -182,4 +254,4 @@ const StandardPost = (props) => {
     );
 }
 
-export default StandardPost;
+export default SquadPost;

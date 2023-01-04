@@ -73,7 +73,7 @@ const CreateSquadPostForm = (props) => {
             </Form.Group>
             <Form.Group className="mb-3" controlId="formText">
                 <Form.Label>Text</Form.Label>
-                <Form.Control as="textarea" onChange={event => setText(event.target.value)}/>
+                <Form.Control as="textarea" required onChange={event => setText(event.target.value)}/>
             </Form.Group>
             <InputGroup className="mb-3">
                 <InputGroup.Text>GK</InputGroup.Text>

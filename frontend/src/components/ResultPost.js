@@ -5,7 +5,7 @@ import { useState, useEffect } from "react";
 import UserService from "../services/UserService";
 import Toast from 'react-bootstrap/Toast';
 
-const StandardPost = (props) => {
+const ResultPost = (props) => {
     const [comment, setComment] = useState("");
     const [comments, setComments] = useState([]);
     const [likeValue, setLikeValue] = useState(0);
@@ -147,14 +147,23 @@ const StandardPost = (props) => {
                         {props.content.text}
                     </span>
                 </div>
-                {
-                    props.image ?
-                    <div className="row text-center mb-2">
-                        <span>
-                            <img src={props.image} alt="post_img" className="w-75"></img>
-                        </span>
-                    </div> : <></>
-                }
+                <div className="row fs-2 mt-2 mb-3 d-flex align-items-center justify-content-center text-center">
+                    <div className="col-3">
+                        {props.content.score.homeName}
+                    </div>
+                    <div className="col-1 bg-white rounded shadow">
+                        {props.content.score.homeGoals}
+                    </div>
+                    <div className="col-1">
+                        :
+                    </div>
+                    <div className="col-1 bg-white rounded shadow">
+                        {props.content.score.awayGoals}
+                    </div>
+                    <div className="col-3">
+                        {props.content.score.awayName}
+                    </div>
+                </div>
                 <div className="row">
                     <span className="mb-2">
                         <Toast onClose={() => setShow(false)} show={show} delay={2500} autohide>
@@ -182,4 +191,4 @@ const StandardPost = (props) => {
     );
 }
 
-export default StandardPost;
+export default ResultPost;
