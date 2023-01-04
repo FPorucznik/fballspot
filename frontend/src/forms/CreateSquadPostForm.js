@@ -43,9 +43,7 @@ const CreateSquadPostForm = (props) => {
         event.preventDefault();
         let content = {
             "text": text,
-            "ratings": teamRatingsData,
-            "likes": 0,
-            "dislikes": 0
+            "ratings": teamRatingsData
         }
 
         let form_data = new FormData();

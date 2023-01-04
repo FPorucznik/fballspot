@@ -25,9 +25,7 @@ const CreateResultPostForm = (props) => {
         event.preventDefault();
         let content = {
             "text": text,
-            "score": teamsData,
-            "likes": 0,
-            "dislikes": 0
+            "score": teamsData
         }
 
         let form_data = new FormData();

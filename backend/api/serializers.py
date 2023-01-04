@@ -86,17 +86,27 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ['id', 'author', 'visibility', 'type', 'date', 'image', 'content']
+        fields = ['id', 'author', 'visibility', 'type', 'date', 'image', 'content', 'likes', 'dislikes']
 
 class ListPostSerializer(serializers.ModelSerializer):
     author = AccountSerializer(read_only=True)
+    likes = AccountSerializer(read_only=True, many=True)
+    dislikes = AccountSerializer(read_only=True, many=True)
 
     class Meta:
         model = Post
-        fields = ['id', 'author', 'visibility', 'type', 'date', 'image', 'content']
+        fields = ['id', 'author', 'visibility', 'type', 'date', 'image', 'content', 'likes', 'dislikes']
 
 class ListCommentSerializer(serializers.ModelSerializer):
     author = AccountSerializer(read_only=True)
+
+    class Meta:
+        model = Comment
+        fields = ['id', 'author', 'post', 'text']
+
+class CommentSerializer(serializers.ModelSerializer):
+    author = serializers.PrimaryKeyRelatedField(queryset=Account.objects.all())
+    post = serializers.PrimaryKeyRelatedField(queryset=Post.objects.all())
 
     class Meta:
         model = Comment

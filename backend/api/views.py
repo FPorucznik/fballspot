@@ -1,14 +1,13 @@
 from rest_framework_simplejwt.views import TokenObtainPairView
 from api.serializers import AccountSerializer, MyTokenObtainPairSerializer, RegisterUserSerializer, UpdateUserSerializer, SearchUserSerializer, \
-    NotificationSerializer, FriendsSerializer, PostSerializer, ListPostSerializer, ListCommentSerializer
+    NotificationSerializer, FriendsSerializer, PostSerializer, ListPostSerializer, ListCommentSerializer, CommentSerializer
 from rest_framework import generics, status
 from django.contrib.auth.models import User
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from .models import Account, Notification, Friend, Post, Comment
 from django.db.models import Q
 from rest_framework.response import Response
-from rest_framework.views import APIView
-from rest_framework.pagination import PageNumberPagination
+from api.pagination import PostsPagination
 
 
 class MyTokenObtainPairView(TokenObtainPairView):
@@ -75,7 +74,7 @@ class DeleteNotificationView(generics.DestroyAPIView):
 
 class ListPostsView(generics.ListAPIView):
     serializer_class = ListPostSerializer
-    pagination_class = PageNumberPagination
+    pagination_class = PostsPagination
 
     def get_queryset(self):
         visibility = self.kwargs['visibility']
@@ -96,3 +95,7 @@ class ListCommentsView(generics.ListAPIView):
     def get_queryset(self):
         post = self.kwargs['post']
         return Comment.objects.filter(post=post)
+
+class CreateCommentView(generics.CreateAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer

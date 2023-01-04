@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, useOutletContext } from "react-router-dom";
 import AuthService from "../services/AuthService";
 import StandardPost from "../components/StandardPost";
 import UserService from "../services/UserService";
@@ -9,6 +9,7 @@ const MainDashboard = () => {
     const [posts, setPosts] = useState([]);
     const [page, setPage] = useState(1);
     const [next, setNext] = useState("");
+    const [userData] = useOutletContext();
 
     useEffect(() => {
         if (AuthService.isLoggedIn()) {
@@ -45,7 +46,7 @@ const MainDashboard = () => {
                             <div className="row text-start">
                                 <span className="fw-bold fs-1">Main Dashboard</span>
                             </div>
-                            {posts.map(data => <StandardPost {...data} key={data.id}/>)}
+                            {posts.map(data => <StandardPost {...data} userData={userData} key={data.id}/>)}
                             <div className="row text-center mx-auto w-25">
                                 <button type="button" onClick={handleLoadMore} className="btn btn-primary">Load more</button>
                             </div>

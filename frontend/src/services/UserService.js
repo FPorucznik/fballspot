@@ -144,6 +144,93 @@ class UserService {
             }
         });
     }
+
+    updatePost(id, content) {
+        return axios.put(API_URL + `posts/update/${id}`, content, { headers: authHeader() })
+            .then(response => {
+                return response;
+            })
+            .catch(error => {
+                if (error.response.status === 401) {
+                    AuthService.refreshToken();
+                }
+                console.log(error);
+            });
+    }
+
+    sendRatingNotification(sender_id, receiver_id, sender_name, type, message) {
+        const data = {
+            'sender': sender_id,
+            'receiver': receiver_id,
+            'type': type,
+            'data': {
+                'username': sender_name,
+                'message': message
+            }
+        }
+        return axios.post(API_URL + `user/notifications/add/`, data, { headers: authHeader() })
+        .then(response => {
+            return response;
+        })
+        .catch(error => {
+            if (error.response.status === 401) {
+                AuthService.refreshToken();
+            }
+            console.log(error);
+        });
+    }
+
+    createComment(author, post, text) {
+        const data = {
+            'author': author,
+            'post': post,
+            'text': text
+        }
+        return axios.post(API_URL + `posts/comments/add/`, data, { headers: authHeader() })
+            .then(response => {
+                return response;
+            })
+            .catch(error => {
+                if (error.response.status === 401) {
+                    AuthService.refreshToken();
+                }
+                console.log(error);
+            });
+    }
+
+    sendCommentNotification(sender_id, receiver_id, sender_name, type, comment) {
+        const data = {
+            'sender': sender_id,
+            'receiver': receiver_id,
+            'type': type,
+            'data': {
+                'username': sender_name,
+                'comment': comment
+            }
+        }
+        return axios.post(API_URL + `user/notifications/add/`, data, { headers: authHeader() })
+        .then(response => {
+            return response;
+        })
+        .catch(error => {
+            if (error.response.status === 401) {
+                AuthService.refreshToken();
+            }
+            console.log(error);
+        });
+    }
+
+    getComments(post) {
+        return axios.get(API_URL + `posts/comments/${post}`, { headers: authHeader() })
+        .then(response => {
+            return response;
+        })
+        .catch(error => {
+            if (error.response.status === 401) {
+                AuthService.refreshToken();
+            }
+        });
+    }
 }
 
 export default new UserService();
