@@ -133,8 +133,8 @@ class UserService {
             });
     }
 
-    getPosts(visibility, page = 1) {
-        return axios.get(API_URL + `posts/${visibility}?page=${page}`, { headers: authHeader() })
+    getPosts(visibility, page = 1, id="0") {
+        return axios.get(API_URL + `posts/${visibility}-${id}?page=${page}`, { headers: authHeader() })
         .then(response => {
             return response;
         })

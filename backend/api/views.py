@@ -77,7 +77,17 @@ class ListPostsView(generics.ListAPIView):
     pagination_class = PostsPagination
 
     def get_queryset(self):
-        visibility = self.kwargs['visibility']
+        data = self.kwargs['visibility'].split("-")
+        visibility = data[0]
+        user = int(data[1])
+
+        if user != 0:
+            friends = Friend.objects.filter(Q(accountOne=user) | Q(accountTwo=user)).values_list('accountOne', 'accountTwo')
+            friends = list(sum(friends,()))
+            if not friends:
+                friends.append(user)
+            return Post.objects.filter(Q(visibility=visibility) & Q(author__id__in=friends)).order_by('date').reverse()
+
         return Post.objects.filter(visibility=visibility).order_by('date').reverse()
 
 
