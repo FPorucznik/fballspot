@@ -3,7 +3,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from rest_framework.validators import UniqueValidator
-from api.models import Account, Notification, Friend, Post
+from api.models import Account, Notification, Friend, Post, Comment
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -86,4 +86,29 @@ class PostSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Post
-        fields = ['id', 'author', 'visibility', 'type', 'date', 'image', 'content']
+        fields = ['id', 'author', 'visibility', 'type', 'date', 'image', 'content', 'likes', 'dislikes']
+
+class ListPostSerializer(serializers.ModelSerializer):
+    author = AccountSerializer(read_only=True)
+    likes = AccountSerializer(read_only=True, many=True)
+    dislikes = AccountSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = Post
+        fields = ['id', 'author', 'visibility', 'type', 'date', 'image', 'content', 'likes', 'dislikes']
+
+class ListCommentSerializer(serializers.ModelSerializer):
+    author = AccountSerializer(read_only=True)
+
+    class Meta:
+        model = Comment
+        fields = ['id', 'author', 'post', 'text']
+
+class CommentSerializer(serializers.ModelSerializer):
+    author = serializers.PrimaryKeyRelatedField(queryset=Account.objects.all())
+    post = serializers.PrimaryKeyRelatedField(queryset=Post.objects.all())
+
+    class Meta:
+        model = Comment
+        fields = ['id', 'author', 'post', 'text']
+

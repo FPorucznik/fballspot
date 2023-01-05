@@ -34,8 +34,10 @@ const Notifications = () => {
                             <div className="row text-start">
                                 <span className="fw-bold fs-1">Notifications</span>
                             </div>
-                            {notificationData &&
-                                notificationData.map((data) => <Notification data={data} key={data.id} />)
+                            {
+                                Array.isArray(notificationData) ?
+                                notificationData.map((data) => <Notification data={data} key={data.id} />) :
+                                <></>
                             }
                         </div>
                     </div>

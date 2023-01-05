@@ -25,9 +25,7 @@ const CreateResultPostForm = (props) => {
         event.preventDefault();
         let content = {
             "text": text,
-            "score": teamsData,
-            "likes": 0,
-            "dislikes": 0
+            "score": teamsData
         }
 
         let form_data = new FormData();
@@ -57,7 +55,7 @@ const CreateResultPostForm = (props) => {
             </Form.Group>
             <Form.Group className="mb-3" controlId="formText">
                 <Form.Label>Text</Form.Label>
-                <Form.Control as="textarea" onChange={event => setText(event.target.value)}/>
+                <Form.Control as="textarea" required onChange={event => setText(event.target.value)}/>
             </Form.Group>
             <InputGroup className="mb-3">
                 <InputGroup.Text>Home team name and goals</InputGroup.Text>

@@ -26,11 +26,11 @@ const Notification = (props) => {
                 </div>
                 : props.data.type === 'like' ?
                 <div className="row">
-                    <span><b>{props.data.data.username}</b> {props.data.data.message}</span>
+                    <span><b>{props.data.data.username}</b> liked Your post: "{props.data.data.message}"</span>
                 </div>
                 : props.data.type === 'dislike' ?
                 <div className="row">
-                    <span><b>{props.data.data.username}</b> {props.data.data.message}</span>
+                    <span><b>{props.data.data.username}</b> disliked Your post: "{props.data.data.message}"</span>
                 </div>
                 : 
                 <></>

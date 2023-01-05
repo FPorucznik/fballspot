@@ -42,7 +42,9 @@ const MainLayout = () => {
         <div className="container-fluid">
             <div className="row flex-nowrap">
                 <Sidebar logoutClick={logout} username={userData && userData.user.username} avatar={userData && userData.avatar} />
-                <Outlet context={[userData, handleUserUpdate]}/>
+                {userData &&
+                    <Outlet context={[userData, handleUserUpdate]}/>
+                }
             </div>
         </div>
     )

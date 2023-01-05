@@ -1,13 +1,13 @@
 from rest_framework_simplejwt.views import TokenObtainPairView
 from api.serializers import AccountSerializer, MyTokenObtainPairSerializer, RegisterUserSerializer, UpdateUserSerializer, SearchUserSerializer, \
-    NotificationSerializer, FriendsSerializer, PostSerializer
+    NotificationSerializer, FriendsSerializer, PostSerializer, ListPostSerializer, ListCommentSerializer, CommentSerializer
 from rest_framework import generics, status
 from django.contrib.auth.models import User
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from .models import Account, Notification, Friend, Post
+from .models import Account, Notification, Friend, Post, Comment
 from django.db.models import Q
 from rest_framework.response import Response
-from rest_framework.views import APIView
+from api.pagination import PostsPagination
 
 
 class MyTokenObtainPairView(TokenObtainPairView):
@@ -73,10 +73,23 @@ class DeleteNotificationView(generics.DestroyAPIView):
     queryset = Notification.objects.all()
 
 class ListPostsView(generics.ListAPIView):
-    serializer_class = PostSerializer
+    serializer_class = ListPostSerializer
+    pagination_class = PostsPagination
 
     def get_queryset(self):
-        return Post.objects.all()
+        data = self.kwargs['visibility'].split("-")
+        visibility = data[0]
+        user = int(data[1])
+
+        if user != 0:
+            friends = Friend.objects.filter(Q(accountOne=user) | Q(accountTwo=user)).values_list('accountOne', 'accountTwo')
+            friends = list(sum(friends,()))
+            if not friends:
+                friends.append(user)
+            return Post.objects.filter(Q(visibility=visibility) & Q(author__id__in=friends)).order_by('date').reverse()
+
+        return Post.objects.filter(visibility=visibility).order_by('date').reverse()
+
 
 class CreatePostView(generics.CreateAPIView):
     queryset = Post.objects.all()
@@ -85,3 +98,14 @@ class CreatePostView(generics.CreateAPIView):
 class UpdatePostView(generics.UpdateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+
+class ListCommentsView(generics.ListAPIView):
+    serializer_class = ListCommentSerializer
+
+    def get_queryset(self):
+        post = self.kwargs['post']
+        return Comment.objects.filter(post=post)
+
+class CreateCommentView(generics.CreateAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer

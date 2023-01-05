@@ -33,13 +33,15 @@ class Post(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(upload_to='posts',  blank=True)
     content = models.JSONField()
+    likes = models.ManyToManyField(Account, related_name="account_likes", blank=True)
+    dislikes = models.ManyToManyField(Account, related_name="account_dislikes", blank=True)
 
     def __str__(self) -> str:
         return f'{self.author.user.username}-{self.type}'
 
 class Comment(models.Model):
     author = models.ForeignKey(Account, null=False, on_delete=models.CASCADE)
-    post = models.OneToOneField(Post, null=False, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, null=False, on_delete=models.CASCADE)
     text = models.TextField(max_length=500, null=False)
 
     def __str__(self) -> str:

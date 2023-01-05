@@ -20,7 +20,7 @@ const Sidebar = (props) => {
 
     return (
         <div className="col-auto col-md-3 col-xl-2 px-sm-2 px-0 bg-dark">
-            <div className="d-flex flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
+            <div className="d-flex sticky-top flex-column align-items-center align-items-sm-start px-3 pt-2 text-white min-vh-100">
                 <LinkContainer to="/main">
                     <a href="/" className="d-flex align-items-center pb-3 mb-md-0 me-md-auto text-white text-decoration-none">
                         <span className="fs-5 d-none d-sm-inline">FballSpot</span>
@@ -75,7 +75,7 @@ const Sidebar = (props) => {
                     </li>
                 </ul>
                 <hr />
-                <div className="dropdown pb-4">
+                <div className="dropdown pb-4 sticky-top">
                     <button className="btn btn-link d-flex align-items-center text-white text-decoration-none dropdown-toggle" type="button" id="dropdownUser" data-bs-toggle="dropdown" aria-expanded="false">
                         <img src={props.avatar} alt="profile_img" width="30" height="30" className="rounded-circle"></img>
                         <span className="ms-2 d-none d-sm-inline align-text-bottom">{props.username}</span>

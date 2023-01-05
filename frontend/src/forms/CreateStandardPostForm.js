@@ -14,8 +14,6 @@ const CreateStandardPostForm = (props) => {
         event.preventDefault();
         let content = {
             "text": text,
-            "likes": 0,
-            "dislikes": 0
         }
 
         let form_data = new FormData();
