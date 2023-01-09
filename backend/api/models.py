@@ -46,3 +46,15 @@ class Comment(models.Model):
 
     def __str__(self) -> str:
         return f'{self.author.user.username}-{self.post}'
+
+class Message(models.Model):
+    author = models.ForeignKey(Account, related_name="chat_message", blank=False, on_delete=models.CASCADE)
+    text = models.TextField(blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+
+class Chat(models.Model):
+    users = models.ManyToManyField(Account, related_name="chat_users")
+    messages = models.ManyToManyField(Message, related_name="chat_messages", blank=True)
+
+    def __str__(self):
+        return f'{self.pk}'
