@@ -120,8 +120,15 @@ class FriendsDetailsSerializer(serializers.ModelSerializer):
         model = Friend
         fields = ['id', 'accountOne', 'accountTwo']
 
+class MessageAccountDetailSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = Account
+        fields = ['id', 'user']
+
 class MessageSerializer(serializers.ModelSerializer):
-    author = AccountSerializer(read_only=True, many=True)
+    author = MessageAccountDetailSerializer(read_only=True)
 
     class Meta:
         model = Message
