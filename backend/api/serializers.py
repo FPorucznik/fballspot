@@ -3,7 +3,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from rest_framework.validators import UniqueValidator
-from api.models import Account, Notification, Friend, Post, Comment
+from api.models import Account, Notification, Friend, Post, Comment, Message, Chat
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -112,3 +112,40 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = ['id', 'author', 'post', 'text']
 
+class FriendsDetailsSerializer(serializers.ModelSerializer):
+    accountOne = AccountSerializer(read_only=True)
+    accountTwo = AccountSerializer(read_only=True)
+
+    class Meta:
+        model = Friend
+        fields = ['id', 'accountOne', 'accountTwo']
+
+class MessageAccountDetailSerializer(serializers.ModelSerializer):
+    user = UserSerializer(read_only=True)
+
+    class Meta:
+        model = Account
+        fields = ['id', 'user']
+
+class MessageSerializer(serializers.ModelSerializer):
+    author = MessageAccountDetailSerializer(read_only=True)
+
+    class Meta:
+        model = Message
+        fields = ['id', 'author', 'text', 'timestamp']
+
+class ChatSerializer(serializers.ModelSerializer):
+    users = AccountSerializer(read_only=True, many=True)
+    messages = MessageSerializer(read_only=True, many=True)
+
+    class Meta:
+        model = Chat
+        fields = ['id', 'users', 'messages']
+
+class CreateChatSerializer(serializers.ModelSerializer):
+    users = serializers.PrimaryKeyRelatedField(required=True, many=True, queryset=Account.objects.all())
+    messages = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+
+    class Meta:
+        model = Chat
+        fields = ['id', 'users', 'messages']

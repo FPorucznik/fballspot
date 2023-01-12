@@ -35,38 +35,38 @@ class UserService {
 
     searchUserProfile(username) {
         return axios.get(API_URL + `user/${username}`, { headers: authHeader() })
-        .then(response => {
-            return response;
-        })
-        .catch(error => {
-            if (error.response.status === 401) {
-                AuthService.refreshToken();
-            }
-        });
+            .then(response => {
+                return response;
+            })
+            .catch(error => {
+                if (error.response.status === 401) {
+                    AuthService.refreshToken();
+                }
+            });
     }
 
     getUserNotifications(username) {
         return axios.get(API_URL + `user/notifications/${username}`, { headers: authHeader() })
-        .then(response => {
-            return response;
-        })
-        .catch(error => {
-            if (error.response.status === 401) {
-                AuthService.refreshToken();
-            }
-        });
+            .then(response => {
+                return response;
+            })
+            .catch(error => {
+                if (error.response.status === 401) {
+                    AuthService.refreshToken();
+                }
+            });
     }
 
     getUserFriends(username) {
         return axios.get(API_URL + `user/friends/${username}`, { headers: authHeader() })
-        .then(response => {
-            return response;
-        })
-        .catch(error => {
-            if (error.response.status === 401) {
-                AuthService.refreshToken();
-            }
-        });
+            .then(response => {
+                return response;
+            })
+            .catch(error => {
+                if (error.response.status === 401) {
+                    AuthService.refreshToken();
+                }
+            });
     }
 
     sendFriendRequest(sender_id, receiver_id, sender_name) {
@@ -79,15 +79,15 @@ class UserService {
             }
         }
         return axios.post(API_URL + `user/notifications/add/`, data, { headers: authHeader() })
-        .then(response => {
-            return response;
-        })
-        .catch(error => {
-            if (error.response.status === 401) {
-                AuthService.refreshToken();
-            }
-            console.log(error);
-        });
+            .then(response => {
+                return response;
+            })
+            .catch(error => {
+                if (error.response.status === 401) {
+                    AuthService.refreshToken();
+                }
+                console.log(error);
+            });
     }
 
     acceptFriendRequest(sender_id, receiver_id) {
@@ -96,28 +96,34 @@ class UserService {
             'accountTwo': receiver_id
         }
         return axios.post(API_URL + `user/friends/add/`, data, { headers: authHeader() })
-        .then(response => {
-            return response;
-        })
-        .catch(error => {
-            if (error.response.status === 401) {
-                AuthService.refreshToken();
-            }
-            console.log(error);
-        });
+            .then(() => {
+                const data = {
+                    'users': [sender_id, receiver_id]
+                }
+                return axios.post(API_URL + `chat/create/`, data, { headers: authHeader() });
+            })
+            .then(response => {
+                return response;
+            })
+            .catch(error => {
+                if (error.response.status === 401) {
+                    AuthService.refreshToken();
+                }
+                console.log(error);
+            });
     }
 
     deleteNotification(id) {
         return axios.delete(API_URL + `user/notifications/delete/${id}`, { headers: authHeader() })
-        .then(response => {
-            return response;
-        })
-        .catch(error => {
-            if (error.response.status === 401) {
-                AuthService.refreshToken();
-            }
-            console.log(error);
-        });
+            .then(response => {
+                return response;
+            })
+            .catch(error => {
+                if (error.response.status === 401) {
+                    AuthService.refreshToken();
+                }
+                console.log(error);
+            });
     }
 
     createPost(data) {
@@ -133,16 +139,16 @@ class UserService {
             });
     }
 
-    getPosts(visibility, page = 1, id="0") {
+    getPosts(visibility, page = 1, id = "0") {
         return axios.get(API_URL + `posts/${visibility}-${id}?page=${page}`, { headers: authHeader() })
-        .then(response => {
-            return response;
-        })
-        .catch(error => {
-            if (error.response.status === 401) {
-                AuthService.refreshToken();
-            }
-        });
+            .then(response => {
+                return response;
+            })
+            .catch(error => {
+                if (error.response.status === 401) {
+                    AuthService.refreshToken();
+                }
+            });
     }
 
     updatePost(id, content) {
@@ -169,15 +175,15 @@ class UserService {
             }
         }
         return axios.post(API_URL + `user/notifications/add/`, data, { headers: authHeader() })
-        .then(response => {
-            return response;
-        })
-        .catch(error => {
-            if (error.response.status === 401) {
-                AuthService.refreshToken();
-            }
-            console.log(error);
-        });
+            .then(response => {
+                return response;
+            })
+            .catch(error => {
+                if (error.response.status === 401) {
+                    AuthService.refreshToken();
+                }
+                console.log(error);
+            });
     }
 
     createComment(author, post, text) {
@@ -209,27 +215,51 @@ class UserService {
             }
         }
         return axios.post(API_URL + `user/notifications/add/`, data, { headers: authHeader() })
-        .then(response => {
-            return response;
-        })
-        .catch(error => {
-            if (error.response.status === 401) {
-                AuthService.refreshToken();
-            }
-            console.log(error);
-        });
+            .then(response => {
+                return response;
+            })
+            .catch(error => {
+                if (error.response.status === 401) {
+                    AuthService.refreshToken();
+                }
+                console.log(error);
+            });
     }
 
     getComments(post) {
         return axios.get(API_URL + `posts/comments/${post}`, { headers: authHeader() })
-        .then(response => {
-            return response;
-        })
-        .catch(error => {
-            if (error.response.status === 401) {
-                AuthService.refreshToken();
-            }
-        });
+            .then(response => {
+                return response;
+            })
+            .catch(error => {
+                if (error.response.status === 401) {
+                    AuthService.refreshToken();
+                }
+            });
+    }
+
+    getUserChats(id) {
+        return axios.get(API_URL + `user/chats/${id}`, { headers: authHeader() })
+            .then(response => {
+                return response;
+            })
+            .catch(error => {
+                if (error.response.status === 401) {
+                    AuthService.refreshToken();
+                }
+            });
+    }
+
+    getChat(id) {
+        return axios.get(API_URL + `chats/${id}`, { headers: authHeader() })
+            .then(response => {
+                return response;
+            })
+            .catch(error => {
+                if (error.response.status === 401) {
+                    AuthService.refreshToken();
+                }
+            });
     }
 }
 

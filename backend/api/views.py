@@ -1,10 +1,11 @@
 from rest_framework_simplejwt.views import TokenObtainPairView
 from api.serializers import AccountSerializer, MyTokenObtainPairSerializer, RegisterUserSerializer, UpdateUserSerializer, SearchUserSerializer, \
-    NotificationSerializer, FriendsSerializer, PostSerializer, ListPostSerializer, ListCommentSerializer, CommentSerializer
+    NotificationSerializer, FriendsSerializer, PostSerializer, ListPostSerializer, ListCommentSerializer, CommentSerializer, FriendsDetailsSerializer, \
+    MessageSerializer, ChatSerializer, CreateChatSerializer
 from rest_framework import generics, status
 from django.contrib.auth.models import User
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from .models import Account, Notification, Friend, Post, Comment
+from .models import Account, Notification, Friend, Post, Comment, Message, Chat
 from django.db.models import Q
 from rest_framework.response import Response
 from api.pagination import PostsPagination
@@ -51,7 +52,7 @@ class AddFriendRelationshipView(generics.CreateAPIView):
 
 class ListFriendsView(generics.ListAPIView):
     serializer_class = FriendsSerializer
-    permission_classes = [IsAuthenticated]
+    # permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         username = self.kwargs['username']
@@ -109,3 +110,25 @@ class ListCommentsView(generics.ListAPIView):
 class CreateCommentView(generics.CreateAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+
+class UserFriendsWithDetailsView(generics.ListAPIView):
+    serializer_class = FriendsDetailsSerializer
+
+    def get_queryset(self):
+        username = self.kwargs['username']
+        return Friend.objects.filter(Q(accountOne__user__username=username) | Q(accountTwo__user__username=username))
+
+class CreateChatView(generics.CreateAPIView):
+    queryset = Chat.objects.all()
+    serializer_class = CreateChatSerializer
+
+class ListChatsView(generics.ListAPIView):
+    serializer_class = ChatSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs['pk']
+        return Chat.objects.filter(users__id=pk)
+
+class GetChatView(generics.RetrieveAPIView):
+    queryset = Chat.objects.all()
+    serializer_class = ChatSerializer
