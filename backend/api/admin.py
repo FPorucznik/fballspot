@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Account, Notification, Friend, Post, Comment, Message, Chat
+from .models import Account, Notification, Friend, Post, Comment, Message, Chat, Watchroom
 
 class AccountAdmin(admin.ModelAdmin):
     pass
@@ -22,6 +22,9 @@ class MessageAdmin(admin.ModelAdmin):
 class ChatAdmin(admin.ModelAdmin):
     pass
 
+class WatchroomAdmin(admin.ModelAdmin):
+    pass
+
 admin.site.register(Account, AccountAdmin)
 admin.site.register(Notification, NotificationAdmin)
 admin.site.register(Friend, FriendsAdmin)
@@ -29,3 +32,4 @@ admin.site.register(Post, PostAdmin)
 admin.site.register(Comment, CommentAdmin)
 admin.site.register(Message, MessageAdmin)
 admin.site.register(Chat, ChatAdmin)
+admin.site.register(Watchroom, WatchroomAdmin)

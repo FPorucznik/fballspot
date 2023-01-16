@@ -17,6 +17,7 @@ import UserBrowse from './views/UserBrowse';
 import Notifications from './views/Notifications';
 import CreatePost from './views/CreatePost';
 import Chat from './views/Chat';
+import Watchroom from './views/Watchroom';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
               <Route path="notifications/:username" element={<Notifications />} />
               <Route path="create-post" element={<CreatePost />} />
               <Route path="chat/:id" element={<Chat />} />
+              <Route path="watchroom/:id" element={<Watchroom />} />
             </Route>
           </Routes>
         </BrowserRouter>
