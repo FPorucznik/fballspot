@@ -261,6 +261,47 @@ class UserService {
                 }
             });
     }
+
+    createWatchroom(host) {
+        const data = {
+            'host': host
+        }
+        return axios.post(API_URL + `watchroom/create/`, data, { headers: authHeader() })
+            .then(response => {
+                return response;
+            })
+            .catch(error => {
+                if (error.response.status === 401) {
+                    AuthService.refreshToken();
+                }
+                console.log(error);
+            });
+    }
+
+    getWatchroom(id) {
+        return axios.get(API_URL + `watchrooms/${id}`, { headers: authHeader() })
+            .then(response => {
+                return response;
+            })
+            .catch(error => {
+                if (error.response.status === 401) {
+                    AuthService.refreshToken();
+                }
+            });
+    }
+
+    updateWatchroom(id, content) {
+        return axios.put(API_URL + `watchrooms/update/${id}`, content, { headers: authHeader() })
+            .then(response => {
+                return response;
+            })
+            .catch(error => {
+                if (error.response.status === 401) {
+                    AuthService.refreshToken();
+                }
+                console.log(error);
+            });
+    }
 }
 
 export default new UserService();

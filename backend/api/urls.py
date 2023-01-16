@@ -5,7 +5,7 @@ from rest_framework_simplejwt.views import (
 from api.views import MyTokenObtainPairView, RegisterUserView, UpdateUserView, UserView, SearchUserView, \
     ListNotificationView, AddFriendRelationshipView, ListFriendsView, AddNotificationView, DeleteNotificationView, \
     ListPostsView, CreatePostView, ListCommentsView, UpdatePostView, CreateCommentView, UserFriendsWithDetailsView, \
-    CreateChatView, ListChatsView, GetChatView
+    CreateChatView, ListChatsView, GetChatView, CreateWatchroomView, GetWatchroomView, UpdateWatchroomView
 
 
 
@@ -30,5 +30,8 @@ urlpatterns = [
     path('user/friends/chats/<slug:username>', UserFriendsWithDetailsView.as_view(), name='user_friends_chats'),
     path('chat/create/', CreateChatView.as_view(), name='chat_create'),
     path('user/chats/<int:pk>', ListChatsView.as_view(), name='user_chats'),
-    path('chats/<int:pk>', GetChatView.as_view(), name='get_chat')
+    path('chats/<int:pk>', GetChatView.as_view(), name='get_chat'),
+    path('watchroom/create/', CreateWatchroomView.as_view(), name='create_watchroom'),
+    path('watchrooms/<int:pk>', GetWatchroomView.as_view(), name='get_watchroom'),
+    path('watchrooms/update/<int:pk>', UpdateWatchroomView.as_view(), name='update_watchroom')
 ]

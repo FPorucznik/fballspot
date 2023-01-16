@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.utils.crypto import get_random_string
 
 class Account(models.Model):
     user = models.OneToOneField(User, null=False, on_delete=models.CASCADE)
@@ -55,6 +56,22 @@ class Message(models.Model):
 class Chat(models.Model):
     users = models.ManyToManyField(Account, related_name="chat_users")
     messages = models.ManyToManyField(Message, related_name="chat_messages", blank=True)
+
+    def __str__(self):
+        return f'{self.pk}'
+
+def generate_code():
+    while True:
+        code = get_random_string(10)
+        if Watchroom.objects.filter(code=code).count() == 0:
+            break
+    return code
+
+class Watchroom(models.Model):
+    code = models.CharField(max_length=10, unique=True)
+    host = models.ForeignKey(Account, related_name="watchroom_host", blank=False, on_delete=models.CASCADE)
+    users = models.ManyToManyField(Account, related_name="watchroom_users")
+    messages = models.ManyToManyField(Message, related_name="watchroom_messages", blank=True)
 
     def __str__(self):
         return f'{self.pk}'

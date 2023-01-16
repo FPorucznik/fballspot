@@ -1,11 +1,11 @@
 from rest_framework_simplejwt.views import TokenObtainPairView
 from api.serializers import AccountSerializer, MyTokenObtainPairSerializer, RegisterUserSerializer, UpdateUserSerializer, SearchUserSerializer, \
     NotificationSerializer, FriendsSerializer, PostSerializer, ListPostSerializer, ListCommentSerializer, CommentSerializer, FriendsDetailsSerializer, \
-    MessageSerializer, ChatSerializer, CreateChatSerializer
+    MessageSerializer, ChatSerializer, CreateChatSerializer, CreateWatchroomSerializer, GetWatchroomSerializer, UpdateWatchroomSerializer
 from rest_framework import generics, status
 from django.contrib.auth.models import User
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from .models import Account, Notification, Friend, Post, Comment, Message, Chat
+from .models import Account, Notification, Friend, Post, Comment, Message, Chat, Watchroom
 from django.db.models import Q
 from rest_framework.response import Response
 from api.pagination import PostsPagination
@@ -132,3 +132,15 @@ class ListChatsView(generics.ListAPIView):
 class GetChatView(generics.RetrieveAPIView):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
+
+class CreateWatchroomView(generics.CreateAPIView):
+    queryset = Watchroom.objects.all()
+    serializer_class =  CreateWatchroomSerializer
+
+class GetWatchroomView(generics.RetrieveAPIView):
+    queryset = Watchroom.objects.all()
+    serializer_class = GetWatchroomSerializer
+
+class UpdateWatchroomView(generics.UpdateAPIView):
+    queryset = Watchroom.objects.all()
+    serializer_class = UpdateWatchroomSerializer

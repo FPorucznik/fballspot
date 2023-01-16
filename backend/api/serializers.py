@@ -3,7 +3,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from rest_framework.validators import UniqueValidator
-from api.models import Account, Notification, Friend, Post, Comment, Message, Chat
+from api.models import Account, Notification, Friend, Post, Comment, Message, Chat, Watchroom, generate_code
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -125,7 +125,7 @@ class MessageAccountDetailSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Account
-        fields = ['id', 'user']
+        fields = ['id', 'user', 'avatar']
 
 class MessageSerializer(serializers.ModelSerializer):
     author = MessageAccountDetailSerializer(read_only=True)
@@ -149,3 +149,33 @@ class CreateChatSerializer(serializers.ModelSerializer):
     class Meta:
         model = Chat
         fields = ['id', 'users', 'messages']
+
+class CreateWatchroomSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Watchroom
+        fields = ['id', 'host']
+
+    def create(self, validated_data):
+        room = Watchroom(
+            host=validated_data['host'],
+            code=generate_code()
+        )
+        room.save()
+        room.users.add(validated_data['host'])
+        room.save()
+
+        return room
+
+class GetWatchroomSerializer(serializers.ModelSerializer):
+    users = AccountSerializer(read_only=True, many=True)
+    messages = MessageSerializer(read_only=True, many=True)
+    host = AccountSerializer(read_only=True)
+
+    class Meta:
+        model = Watchroom
+        fields = ['id', 'host', 'code', 'users', 'messages']
+
+class UpdateWatchroomSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Watchroom
+        fields = ['host', 'code', 'users', 'messages']
