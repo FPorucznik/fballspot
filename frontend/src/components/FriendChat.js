@@ -5,7 +5,6 @@ const FriendChat = (props) => {
     const navigate = useNavigate();
 
     const handleClick = () => {
-        console.log("clicked ", props.user.user.username);
         navigate(`/main/chat/${props.id}`);
     }
 

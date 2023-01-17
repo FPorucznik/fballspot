@@ -15,18 +15,12 @@ const UserBrowse = () => {
             UserService.searchUserProfile(username)
                 .then(response => {
                     setFoundUserData(response.data[0]);
-                })
-                .catch(error => {
-                    console.log(error);
                 });
             if (userData) {
                 UserService.getUserFriends(userData.user.username)
-                .then(response => {
-                    setUserFriends(response.data);
-                })
-                .catch(error => {
-                    console.log(error);
-                });
+                    .then(response => {
+                        setUserFriends(response.data);
+                    });
             }
         }
         else {
@@ -68,7 +62,7 @@ const UserBrowse = () => {
                                         <span className="fs-6 fst-italic text-secondary mx-auto mt-1" style={{ width: "500px" }}>{foundUserData.bio}</span>
                                     </div>
                                     <div className="row text-center">
-                                        <span className="fs-6 mx-auto mt-2" style={{ width: "300px" }}>{foundUserData.fav_team}</span>
+                                        <span className="fs-6 mx-auto mt-2" style={{ width: "300px" }}>Favourite team: {foundUserData.fav_team}</span>
                                     </div>
                                     {
                                         checkIfFriend() && userData.user.username !== foundUserData.user.username &&

@@ -23,7 +23,7 @@ const MyVerticallyCenteredModal = (props) => {
         let form_data = new FormData();
         form_data.append('bio', bio);
         form_data.append('fav_team', favTeam);
-        if(avatar.name) {
+        if (avatar.name) {
             form_data.append('avatar', avatar, avatar.name);
         }
         UserService.updateUserProfile(form_data)
@@ -91,10 +91,10 @@ const EditProfile = (props) => {
                     <span className="fs-6 fst-italic text-secondary mx-auto mt-1" style={{ width: "500px" }}>{props.userData.bio}</span>
                 </div>
                 <div className="row text-center">
-                    <span className="fs-6 mx-auto mt-2" style={{ width: "300px" }}>{props.userData.fav_team}</span>
+                    <span className="fs-6 mx-auto mt-2" style={{ width: "300px" }}>Favourite team: {props.userData.fav_team}</span>
                 </div>
             </div>
-            <MyVerticallyCenteredModal show={modalShow} onHide={() => setModalShow(false)} {...props.userData} userUpdate={props.userUpdate} setModalVisibility={setModalVisibility}/>
+            <MyVerticallyCenteredModal show={modalShow} onHide={() => setModalShow(false)} {...props.userData} userUpdate={props.userUpdate} setModalVisibility={setModalVisibility} />
         </>
     )
 }

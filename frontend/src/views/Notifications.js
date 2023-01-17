@@ -12,11 +12,8 @@ const Notifications = () => {
     useEffect(() => {
         if (AuthService.isLoggedIn()) {
             UserService.getUserNotifications(username)
-                .then( response => {
+                .then(response => {
                     setNotificationData(response.data);
-                })
-                .catch(error => {
-                    console.log(error);
                 });
         }
         else {
@@ -36,8 +33,8 @@ const Notifications = () => {
                             </div>
                             {
                                 Array.isArray(notificationData) ?
-                                notificationData.map((data) => <Notification data={data} key={data.id} />) :
-                                <></>
+                                    notificationData.map((data) => <Notification data={data} key={data.id} />) :
+                                    <></>
                             }
                         </div>
                     </div>

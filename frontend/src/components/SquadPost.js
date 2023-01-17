@@ -32,7 +32,7 @@ const SquadPost = (props) => {
                 setLikeBtnStyle("");
             }
         }
-    
+
         const checkDislikes = () => {
             if (props.dislikes.some(dislike => dislike.user.username === props.userData.user.username)) {
                 setDislikeBtnStyle("active");
@@ -46,24 +46,21 @@ const SquadPost = (props) => {
         checkDislikes();
 
         UserService.getComments(props.id)
-        .then((response) => {
-            setComments(response.data);
-        });
+            .then((response) => {
+                setComments(response.data);
+            });
     }, [props.likes, props.dislikes, props.userData.user.username, props.id]);
 
     const handleSubmit = (event) => {
         event.preventDefault();
         UserService.createComment(props.userData.id, props.id, comment)
-        .then(() => {
-           console.log("added comment"); 
-
-           UserService.sendCommentNotification(props.userData.id, props.author.id, props.userData.user.username, "comment", comment);
-
-           UserService.getComments(props.id)
-           .then((response) => {
-               setComments(response.data);
-           });
-        });
+            .then(() => {
+                UserService.sendCommentNotification(props.userData.id, props.author.id, props.userData.user.username, "comment", comment);
+                UserService.getComments(props.id)
+                    .then((response) => {
+                        setComments(response.data);
+                    });
+            });
     }
 
     const handleLike = (event) => {
@@ -89,10 +86,10 @@ const SquadPost = (props) => {
             }
 
             UserService.updatePost(props.id, content)
-            .then(() => {
-                setLikeValue(1);
-                setReacted(true);
-            });
+                .then(() => {
+                    setLikeValue(1);
+                    setReacted(true);
+                });
 
             UserService.sendRatingNotification(props.userData.id, props.author.id, props.userData.user.username, "like", props.content.text);
         }
@@ -121,10 +118,10 @@ const SquadPost = (props) => {
             }
 
             UserService.updatePost(props.id, content)
-            .then(() => {
-                setDislikeValue(1);
-                setReacted(true);
-            });
+                .then(() => {
+                    setDislikeValue(1);
+                    setReacted(true);
+                });
 
             UserService.sendRatingNotification(props.userData.id, props.author.id, props.userData.user.username, "dislike", props.content.text);
         }
@@ -149,7 +146,7 @@ const SquadPost = (props) => {
                 </div>
                 <div className="row mb-2 d-flex align-items-center justify-content-center">
                     <div className="d-flex my-auto align-items-center justify-content-center position-relative">
-                        <div className="d-grid" style={{backgroundImage: `url("http://localhost:8000/media/pitch.jpg")`, backgroundSize: "cover", width: "418px", height: "580px"}}>
+                        <div className="d-grid" style={{ backgroundImage: `url("http://localhost:8000/media/pitch.jpg")`, backgroundSize: "cover", width: "418px", height: "580px" }}>
                             <div className="row mt-5">
                                 <div className="col col-4 d-flex align-items-center justify-content-center">
                                     <span className="bg-white rounded p-1 fw-bold shadow-lg">
@@ -232,22 +229,22 @@ const SquadPost = (props) => {
                         <Toast onClose={() => setShow(false)} show={show} delay={2500} autohide>
                             <Toast.Body>{message}</Toast.Body>
                         </Toast>
-                        <button type="button" className={"btn btn-outline-success mx-2 " + likeBtnStyle} onClick={handleLike}><i className="bi bi-hand-thumbs-up"></i><span className="ms-2">{props.likes.length + likeValue}</span></button> 
+                        <button type="button" className={"btn btn-outline-success mx-2 " + likeBtnStyle} onClick={handleLike}><i className="bi bi-hand-thumbs-up"></i><span className="ms-2">{props.likes.length + likeValue}</span></button>
                         <button type="button" className={"btn btn-outline-danger " + dislikeBtnStyle} onClick={handleDislike}><i className="bi bi-hand-thumbs-down"></i><span className="ms-2">{props.dislikes.length + dislikeValue}</span></button>
                     </span>
                     <span>
                         <Form onSubmit={handleSubmit}>
                             <Form.Group className="mb-3" controlId="formText">
-                                <Form.Control type="text" onChange={event => setComment(event.target.value)} placeholder="Write a comment" required/>
+                                <Form.Control type="text" onChange={event => setComment(event.target.value)} placeholder="Write a comment" required />
                             </Form.Group>
                             <Button variant="primary" type="submit" className="mb-2">
-                                    Add comment
+                                Add comment
                             </Button>
                         </Form>
                     </span>
                 </div>
                 <div className="row">
-                    {comments.map(data => <Comment {...data} key={data.id}/>)}
+                    {comments.map(data => <Comment {...data} key={data.id} />)}
                 </div>
             </div>
         </>

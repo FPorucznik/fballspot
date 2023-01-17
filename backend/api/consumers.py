@@ -19,7 +19,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.channel_layer.group_discard(self.chat_group_name, self.channel_name)
 
     async def receive(self, text_data):
-        print("receive ran")
         text_data_json = json.loads(text_data)
         message = text_data_json["message"]
         type = text_data_json["type"]
@@ -33,14 +32,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
         )
 
     async def chat_message(self, event):
-        print("chat_message ran")
         messageData = event["message"]
 
         await self.send(text_data=json.dumps({"message": messageData}))
     
     @database_sync_to_async
     def create_message(self, author, text, chat_id):
-        print("creating message")
         account = Account.objects.get(id=author)
         message = Message(
             author=account,
@@ -81,7 +78,6 @@ class WatchroomConsumer(AsyncWebsocketConsumer):
         if type == "watchroom_message":
             messageData = await self.create_message(sender, message, watchroom_id)
         else:
-            print(message)
             messageData = {
                 "type": type,
                 "message": message,

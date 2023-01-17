@@ -4,7 +4,6 @@ import AuthService from "../services/AuthService";
 import UserService from "../services/UserService";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import InputGroup from 'react-bootstrap/InputGroup';
 
 const Watchrooms = () => {
     const [loggedOut, setLoggedOut] = useState(false);
@@ -16,10 +15,7 @@ const Watchrooms = () => {
     const [message, setMessage] = useState("");
 
     useEffect(() => {
-        if (AuthService.isLoggedIn()) {
-            console.log("logged in");
-        }
-        else {
+        if (!AuthService.isLoggedIn()) {
             setLoggedOut(true);
         }
     }, []);
