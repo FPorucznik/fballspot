@@ -69,7 +69,10 @@ const Sidebar = (props) => {
                     <li className="nav-item">
                         <LinkContainer to={`/main/notifications/${props.username}`}>
                             <a href="/" className="nav-link align-middle px-0">
-                                <i className="fs-4 bi bi-bell"></i><span className="ms-2 d-none d-sm-inline align-text-bottom">Notifications</span>
+                                <i className="fs-4 bi bi-bell"></i>
+                                <span className="ms-2 d-none d-sm-inline align-text-bottom">
+                                    Notifications <span className="bg-danger rounded text-white p-1 mx-1">{props.notificationCount}</span>
+                                </span>
                             </a>
                         </LinkContainer>
                     </li>

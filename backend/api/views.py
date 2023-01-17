@@ -1,11 +1,11 @@
 from rest_framework_simplejwt.views import TokenObtainPairView
 from api.serializers import AccountSerializer, MyTokenObtainPairSerializer, RegisterUserSerializer, UpdateUserSerializer, SearchUserSerializer, \
     NotificationSerializer, FriendsSerializer, PostSerializer, ListPostSerializer, ListCommentSerializer, CommentSerializer, FriendsDetailsSerializer, \
-    MessageSerializer, ChatSerializer, CreateChatSerializer, CreateWatchroomSerializer, GetWatchroomSerializer, UpdateWatchroomSerializer
+    ChatSerializer, CreateChatSerializer, CreateWatchroomSerializer, GetWatchroomSerializer, UpdateWatchroomSerializer
 from rest_framework import generics, status
 from django.contrib.auth.models import User
 from rest_framework.permissions import AllowAny, IsAuthenticated
-from .models import Account, Notification, Friend, Post, Comment, Message, Chat, Watchroom
+from .models import Account, Notification, Friend, Post, Comment, Chat, Watchroom
 from django.db.models import Q
 from rest_framework.response import Response
 from api.pagination import PostsPagination
@@ -52,7 +52,7 @@ class AddFriendRelationshipView(generics.CreateAPIView):
 
 class ListFriendsView(generics.ListAPIView):
     serializer_class = FriendsSerializer
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         username = self.kwargs['username']
@@ -76,6 +76,7 @@ class DeleteNotificationView(generics.DestroyAPIView):
 class ListPostsView(generics.ListAPIView):
     serializer_class = ListPostSerializer
     pagination_class = PostsPagination
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         data = self.kwargs['visibility'].split("-")
@@ -95,13 +96,16 @@ class ListPostsView(generics.ListAPIView):
 class CreatePostView(generics.CreateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    permission_classes = [IsAuthenticated]
 
 class UpdatePostView(generics.UpdateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    permission_classes = [IsAuthenticated]
 
 class ListCommentsView(generics.ListAPIView):
     serializer_class = ListCommentSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         post = self.kwargs['post']
@@ -110,9 +114,11 @@ class ListCommentsView(generics.ListAPIView):
 class CreateCommentView(generics.CreateAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+    permission_classes = [IsAuthenticated]
 
 class UserFriendsWithDetailsView(generics.ListAPIView):
     serializer_class = FriendsDetailsSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         username = self.kwargs['username']
@@ -121,9 +127,11 @@ class UserFriendsWithDetailsView(generics.ListAPIView):
 class CreateChatView(generics.CreateAPIView):
     queryset = Chat.objects.all()
     serializer_class = CreateChatSerializer
+    permission_classes = [IsAuthenticated]
 
 class ListChatsView(generics.ListAPIView):
     serializer_class = ChatSerializer
+    permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
         pk = self.kwargs['pk']
@@ -132,15 +140,19 @@ class ListChatsView(generics.ListAPIView):
 class GetChatView(generics.RetrieveAPIView):
     queryset = Chat.objects.all()
     serializer_class = ChatSerializer
+    permission_classes = [IsAuthenticated]
 
 class CreateWatchroomView(generics.CreateAPIView):
     queryset = Watchroom.objects.all()
     serializer_class =  CreateWatchroomSerializer
+    permission_classes = [IsAuthenticated]
 
 class GetWatchroomView(generics.RetrieveAPIView):
     queryset = Watchroom.objects.all()
     serializer_class = GetWatchroomSerializer
+    permission_classes = [IsAuthenticated]
 
 class UpdateWatchroomView(generics.UpdateAPIView):
     queryset = Watchroom.objects.all()
     serializer_class = UpdateWatchroomSerializer
+    permission_classes = [IsAuthenticated]

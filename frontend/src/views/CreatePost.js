@@ -13,10 +13,7 @@ const CreatePost = () => {
     const [postType, setPostType] = useState("");
 
     useEffect(() => {
-        if (AuthService.isLoggedIn()) {
-            console.log("logged in");
-        }
-        else {
+        if (!AuthService.isLoggedIn()) {
             setLoggedOut(true);
         }
     }, []);
@@ -45,13 +42,13 @@ const CreatePost = () => {
                             </div>
                             <div className="row">
                                 {
-                                    postType === "standard" ? 
-                                    <CreateStandardPostForm userData={userData} />
-                                    : postType === "result" ?
-                                    <CreateResultPostForm userData={userData} />
-                                    : postType === "squad" ?
-                                    <CreateSquadPostForm userData={userData} />
-                                    : <></>
+                                    postType === "standard" ?
+                                        <CreateStandardPostForm userData={userData} />
+                                        : postType === "result" ?
+                                            <CreateResultPostForm userData={userData} />
+                                            : postType === "squad" ?
+                                                <CreateSquadPostForm userData={userData} />
+                                                : <></>
                                 }
                             </div>
                         </div>

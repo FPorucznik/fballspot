@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { Navigate, useOutletContext, useNavigate, useParams, useFetcher } from "react-router-dom";
+import { Navigate, useOutletContext, useParams } from "react-router-dom";
 import AuthService from "../services/AuthService";
 import UserService from "../services/UserService";
 import Button from 'react-bootstrap/Button';
@@ -13,7 +13,6 @@ import ReactPlayer from 'react-player'
 const Watchroom = () => {
     const [loggedOut, setLoggedOut] = useState(false);
     const [userData] = useOutletContext();
-    const navigate = useNavigate();
     const { id } = useParams();
     const [watchroomData, setWatchroomData] = useState([]);
     const [chatMessages, setChatMessages] = useState([]);
