@@ -75,7 +75,6 @@ const RegisterForm = () => {
                 </Form>
             </div>
             <div className="col">
-                <p className="text-danger">{passwordCheckMessage}</p>
                 <ul className="text-danger">{validationMessages}</ul>
                 <Form>
                     <Form.Group className="mb-2" controlId="formMessage">
