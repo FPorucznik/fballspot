@@ -42,3 +42,5 @@ Head to frontend folder and install necessary dependencies then run app
 `cd frontend`
 `yarn install`
 `yarn start`
+
+Head to http://localhost:3000 to view the app
