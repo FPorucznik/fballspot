@@ -28,7 +28,7 @@ FballSpot is a social media web application done for the purpose of my engineeri
 ## Local setup guide
 **Database**
 For simplicity use docker and run the following command to create container with postgres db 
-`docker run --name fitlife -e POSTGRES_USER=fitlife -e POSTGRES_PASSWORD=fitlife -p 5432:5432 -v fitlife-db:/var/lib/postgresql/data -d postgres`
+`docker run --name fballspot -e POSTGRES_USER=fballspot -e POSTGRES_PASSWORD=fballspot -p 5432:5432 -v fballspot-db:/var/lib/postgresql/data -d postgres`
 
 **Backend**
 Head to backend folder and install necessary packages and apply migrations then run server
