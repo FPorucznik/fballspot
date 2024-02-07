@@ -40,6 +40,8 @@ pip install -r requirements.txt
 python ./manage.py migrate
 python ./manage.py runserver
 ```
+**Create /media folder for image uploads**
+
 **Frontend**
 Head to frontend folder and install necessary dependencies then run app
 ```
@@ -48,3 +50,11 @@ yarn install
 yarn start
 ```
 Head to http://localhost:3000 to view the app
+
+**Demo screenshots**
+
+<img width="934" alt="demo1" src="https://github.com/FPorucznik/fballspot/assets/56200864/d6ece5cb-ac10-4698-902c-6bc8676dc65f">
+
+<img width="934" alt="demo2" src="https://github.com/FPorucznik/fballspot/assets/56200864/c505c4b8-fad1-43a4-a128-19086754f671">
+
+<img width="934" alt="demo3" src="https://github.com/FPorucznik/fballspot/assets/56200864/4dfc1887-106a-4620-88ab-683821c5e54b">
