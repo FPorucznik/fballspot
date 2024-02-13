@@ -1,4 +1,4 @@
-# FballSpot - social media for football fans
+# FballSpot - social media web app for football fans
 
 FballSpot is a social media web application done for the purpose of my engineering thesis. The target users of the app are football fans. The project allows users to create accounts, posts, chat with each other and create watchrooms that enable watching youtube content together. All of this is football oriented.
 
